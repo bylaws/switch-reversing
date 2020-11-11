@@ -9,28 +9,16 @@ def main(pattern, filename):
 	target_text = f.binfile.read(f.textsize)
 
 	rows = eval('[' + open(pattern).read() + ']')
-	with open(filename + '-sdk-syms.py', 'wb') as f:
-
-		f.write('syms = [\n')
+	with open(filename + '-sdk-syms.json', 'wb') as f:
+		f.write('{\n')
+		first = True;
 		for value, size, regex, name in rows:
 			#print '(0x%X, 0x%X, %r, %r),' % (sym.value, sym.size, regex, sym.name)
 			positions = [m.start() for m in re.finditer(regex, target_text)]
 			if len(positions) == 1:
-				f.write('(0x%X, %r),\n' % (0x7100000000 + positions[0], name))
-		f.write(''']
-
-for addr, sym in syms:
-	oldname = Name(addr)
-	if oldname.startswith('sub_'):
-		MakeName(addr, sym)
-		MakeComm(addr, 'name from regex match')
-	elif oldname.startswith('loc_'):
-		MakeName(addr, sym)
-		MakeComm(addr, 'name from regex match')
-		print '%X %s %s' % (addr, oldname, sym)
-	elif oldname != sym:
-		print '%X %s %s' % (addr, oldname, sym)
-''')
+				f.write((',\n' if not first else "") + '	"0x%X" : "%s"' % (0x7100000000 + positions[0], name))
+				first = False
+		f.write('}\n')
 
 			
 if __name__ == '__main__':

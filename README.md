@@ -1,5 +1,7 @@
 # switch-reversing
 
+My fork of hthh's switch reversing scripts, with more tools and modifications for ghidra.
+
 These are my personal Switch reversing scripts.
 
 This is all a bit messy and chaotic, but I'm going to try to push my personal RE scripts and tools a bit more, since they can be pretty useful. Use at your own risk, no warranty, etc.
@@ -8,5 +10,4 @@ This is all a bit messy and chaotic, but I'm going to try to push my personal RE
 * `binutils` has simple utilities for dumping information from Switch binaries.
 * `pattern` is a pair of scripts for identifying and naming common library code in 64-bit binaries (where you have one file with the code with symbols, and another with the same code, but without symbols).
 * `ipcserver` contains scripts for automatically finding the implementations of IPC commands in sysmodule binaries.
-* `ipcclient` contains a script I use to generate vtable structures for IPC client code using IDA and the Hex-Rays decompiler.
-* `loader` contains my personal fork of the ReSwitched loader with a number of other useful features.
+* `debugdata-extract` contains a script used to extract the synbols from an ELF's .gnu\_debugdata section so they can be imported into Ghidra
